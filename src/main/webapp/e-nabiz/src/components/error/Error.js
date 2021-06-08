@@ -4,7 +4,7 @@ class Error extends Component {
     render() {
         return (
             <div>
-                <h1>An error occured</h1>
+                <h1>An error occured !! SG AMK BEDEVISI</h1>
             </div>
         );
     }

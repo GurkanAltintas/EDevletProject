@@ -2,8 +2,8 @@ package com.edevlet.project.usecases.common.rest.model;
 
 public abstract class AbstractCommonResponse {
 
-	private ApiResult result;
-	private Object data;
+	private ApiResult result = new ApiResult();
+	private Object data = null;
 
 	public Object getData() {
 		return data;

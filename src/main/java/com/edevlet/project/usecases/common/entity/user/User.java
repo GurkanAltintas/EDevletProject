@@ -1,5 +1,6 @@
 package com.edevlet.project.usecases.common.entity.user;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,11 +19,18 @@ public class User {
 	@GeneratedValue
 	private Long id;
 
+	@Column(name = "Name")
 	private String name;
+	@Column(name = "Surname")
 	private String surname;
+	@Column(name = "IdentityNumber")
 	private String identityNumber;
+	@Column(name = "Username")
 	private String username;
+	@Column(name = "Password")
 	private String password;
+	@Column(name = "MailAdress")
 	private String mailAdress;
+	@Column(name = "PhoneNumber")
 	private String phoneNumber;
 }

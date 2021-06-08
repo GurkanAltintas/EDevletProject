@@ -1,6 +1,7 @@
 package com.edevlet.project.usecases.common.rest.exception;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,13 +25,15 @@ public class CustomGlobalExceptionResolver {
 	public void handleException(HttpServletRequest request, HttpServletResponse response, RuntimeException e)
 			throws IOException {
 
+		ApiError error = new ApiError();
+		error.setCode(e.getMessage());
+		error.setExplanation(ExceptionUtils.getStackTrace(e));
+
 		ApiResult apiResult = new ApiResult();
 		apiResult.setCode(ApiStatus.EXCEPTION.getCode());
 		apiResult.setDetail("A runtime exception occurred");
 
-		ApiError error = new ApiError();
-		error.setCode(e.getMessage());
-		error.setExplanation(ExceptionUtils.getStackTrace(e));
+		apiResult.setErrors(List.of(error));
 
 		GlobalExceptionResponse globalExceptionResponse = new GlobalExceptionResponse();
 		globalExceptionResponse.setResult(apiResult);

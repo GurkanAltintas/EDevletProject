@@ -1,11 +1,12 @@
 package com.edevlet.project.usecases.common.rest.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ApiResult {
-	private String code;
-	private String detail;
-	private List<ApiError> errors;
+	private String code = ApiStatus.SUCCESS.getCode();
+	private String detail = "SUCCESS";
+	private List<ApiError> errors = new ArrayList<>();
 
 	public String getCode() {
 		return code;

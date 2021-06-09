@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
+import {Button, FormGroup, Input, Row, Badge, CardText, Card, Container} from 'reactstrap';
 
 
 class SignIn extends Component {
@@ -12,10 +12,10 @@ class SignIn extends Component {
 
 
     handleChange = event => {
-        this.setState({tc: event.target.value })
+        this.setState({tc: event.target.value})
     }
     handleChangeP = event => {
-        this.setState({password: event.target.value })
+        this.setState({password: event.target.value})
     }
 
     handleSubmit = async event => {
@@ -49,11 +49,37 @@ class SignIn extends Component {
 
                         />
                     </FormGroup>
-
                     <Button color="success" type="submit" color="primary">Giriş</Button>
-
-                    <Link to="/forgot" className="btn btn-lg"> Şifremi Unuttum      </Link>
+                    <Badge color="primary">
+                        <Link to="/forgot" className="btn btn-lg"> Şifremi Unuttum </Link>
+                    </Badge>
                 </form>
+                <Row >
+
+                </Row>
+                <Container >
+
+
+                <Row >
+                    <p className="text-muted">
+                        İlk kez e-Nabız kullanıcısı olacak kişiler e-Devlet
+                        <a href="https://www.turkiye.gov.tr/" target="_blank"> (www.turkiye.gov.tr)</a> üzerinden e-Nabız’a giriş yaparak
+                        profil ayarları üzerinden e-Nabız şifresi oluşturmalı
+                        ya da kendi Aile Hekimine başvurarak
+                        e-Nabız için geçici şifre edinmelidir.
+                </p>
+                    <div class="devider">________________________________________________________</div>
+                    <Row >
+                        <Link to="/register" >
+                            <Button  color="danger">E-Devlet Üzerinden Kayıt Ol</Button>
+                        </Link>
+                    </Row>
+                </Row >
+                </Container>
+                <p className="text-success">
+                    <a href="https://enabiz.gov.tr/Yardim/Index" target="_blank"> e-Devlet Üzerinden Nasıl Kayıt Olurum? </a>
+                </p>
+
 
             </div>
         );

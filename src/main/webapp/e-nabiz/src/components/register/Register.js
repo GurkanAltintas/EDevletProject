@@ -2,81 +2,115 @@ import React, {Component} from 'react';
 import {Button, Form, Col, FormGroup, Label, Input, FormText, Container} from 'reactstrap';
 import logo from "../../images/edevlet-logo.png"
 import logo2 from "../../images/e-nabiz-logo.jpg"
+import axios from "axios";
 
 class Register extends Component {
 
+    state = {
+        name: "",
+        surname: "",
+        identityNumber: "",
+        username: "",
+        password: "",
+        mailAdress: "",
+        phoneNumber: ""
+
+    }
+    handleChangeName = event => {
+        this.setState({name: event.target.value})
+    }
+    handleChangeSurname = event => {
+        this.setState({surname: event.target.value})
+    }
+    handleChangeidentityNumber = event => {
+        this.setState({identityNumber: event.target.value})
+    }
+    handleChangeusername = event => {
+        this.setState({username: event.target.value})
+    }
+    handleChangepassword = event => {
+        this.setState({password: event.target.value})
+    }
+    handleChangemailAdress = event => {
+        this.setState({mailAdress: event.target.value})
+    }
+    handleChangephoneNumber = event => {
+        this.setState({phoneNumber: event.target.value})
+    }
+
+
+    submit = async event => {
+        event.preventDefault()
+
+        axios.post('http://localhost:8080/api/user/saveUser', this.state)
+            .then(response => {console.log(response)})
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+
+
+
+
+    }
+
     render() {
+        const {
+            name,
+            surname,
+            identityNumber,
+            username,
+            password,
+            mailAdress,
+            phoneNumber
+
+        }=this.state
         return (
             <div>
                 <Container>
+                    <th><a href="https://www.turkiye.gov.tr/"><img src={logo} width="1000" height="150"/></a></th>
+                    <th><img src={logo2} width="600" height="150"/></th>
 
-                <th> <a href="https://www.turkiye.gov.tr/"><img src={logo} width="1000" height="150"/></a></th>
-                <th><img src={logo2} width="600" height="150"/></th>
-
-                <body>
-
-                <Form>
-                    <FormGroup>
-                        <Label for="exampleEmail">Email</Label>
-                        <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder"/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="examplePassword">Password</Label>
-                        <Input type="password" name="password" id="examplePassword" placeholder="password placeholder"/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="exampleSelect">Select</Label>
-                        <Input type="select" name="select" id="exampleSelect">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </Input>
-                    </FormGroup>
-
-                    <FormGroup>
-                        <Label for="exampleText">Text Area</Label>
-                        <Input type="textarea" name="text" id="exampleText"/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="exampleFile">File</Label>
-                        <Input type="file" name="file" id="exampleFile"/>
-                        <FormText color="muted">
-                            This is some placeholder block-level help text for the above input.
-                            It's a bit lighter and easily wraps to a new line.
-                        </FormText>
-                    </FormGroup>
-                    <FormGroup tag="fieldset">
-                        <legend>Radio Buttons</legend>
-                        <FormGroup check>
-                            <Label check>
-                                <Input type="radio" name="radio1"/>{' '}
-                                Option one is this and that—be sure to include why it's great
-                            </Label>
+                    <body>
+                    <Form onSubmit={this.submit}>
+                        <FormGroup>
+                            <Label for="name">İsim</Label>
+                            <Input type="text" name="name" id="name"
+                                   onChange={this.handleChangeName} placeholder="İsim giriniz"/>
                         </FormGroup>
-                        <FormGroup check>
-                            <Label check>
-                                <Input type="radio" name="radio1"/>{' '}
-                                Option two can be something else and selecting it will deselect option one
-                            </Label>
+                        <FormGroup>
+                            <Label for="surname">Soyisim</Label>
+                            <Input type="text" name="surname" id="surname"
+                                   onChange={this.handleChangeSurname} placeholder="Soyisim giriniz"/>
                         </FormGroup>
-                        <FormGroup check disabled>
-                            <Label check>
-                                <Input type="radio" name="radio1" disabled/>{' '}
-                                Option three is disabled
-                            </Label>
+                        <FormGroup>
+                            <Label for="id">T.C. Kimlik No</Label>
+                            <Input type="text" name="id" id="id"
+                                   onChange={this.handleChangeidentityNumber} placeholder="T.C. Kimlik No Giriniz"/>
                         </FormGroup>
-                    </FormGroup>
-                    <FormGroup check>
-                        <Label check>
-                            <Input type="checkbox"/>{' '}
-                            Check me out
-                        </Label>
-                    </FormGroup>
-                    <Button>Submit</Button>
-                </Form>
-                </body>
+                        <FormGroup>
+                            <Label for="username">Kullanıcı adı</Label>
+                            <Input type="text" name="username" id="username"
+                                   onChange={this.handleChangeusername} placeholder="Kullanıcı adı giriniz"/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="examplePassword">Şifre</Label>
+                            <Input type="password" name="password" id="examplePassword"
+                                   onChange={this.handleChangepassword} placeholder="Şifre giriniz"/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="exampleEmail">E-mail</Label>
+                            <Input type="email" name="email" id="exampleEmail"
+                                   onChange={this.handleChangemailAdress} placeholder="E-mail giriniz"/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="phone">Telefon Numarası</Label>
+                            <Input type="text" name="phone" id="phone"
+                                   onChange={this.handleChangephoneNumber} placeholder="Telefon Numarası Giriniz"/>
+                        </FormGroup>
+
+                        <Button color="primary">Kayıt Ol</Button>
+                    </Form>
+                    </body>
                 </Container>
             </div>
 

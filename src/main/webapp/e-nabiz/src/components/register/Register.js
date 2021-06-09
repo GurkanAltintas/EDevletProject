@@ -10,7 +10,7 @@ class Register extends Component {
             <div>
                 <Container>
 
-                <th> <img src={logo} width="1000" height="150"/></th>
+                <th> <a href="https://www.turkiye.gov.tr/"><img src={logo} width="1000" height="150"/></a></th>
                 <th><img src={logo2} width="600" height="150"/></th>
 
                 <body>

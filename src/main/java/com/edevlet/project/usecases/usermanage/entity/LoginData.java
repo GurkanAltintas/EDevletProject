@@ -1,4 +1,4 @@
-package com.edevlet.project.usecases.manageUser.login.entity;
+package com.edevlet.project.usecases.usermanage.entity;
 
 public class LoginData {
 

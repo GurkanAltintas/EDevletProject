@@ -9,7 +9,7 @@ import com.edevlet.project.usecases.usermanage.entity.SaveUserRequest;
 public class RequestValidator {
 
 	public static void validateLoginRequest(LoginRequest request) {
-		if (StringUtils.isEmpty(request.getUsername())) {
+		if (StringUtils.isEmpty(request.getLoginValue())) {
 			throw new RuntimeException("Empty field: " + "UserName");
 		}
 

@@ -1,5 +1,6 @@
 package com.edevlet.project.usecases.usermanage.service;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -30,6 +31,8 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 
 	@PostConstruct
 	private void init() {
+		processMap = new HashMap<>();
+
 		processMap.put(IDENTITY_NUMBER_LOGIN, this::loginByIdentityNumber);
 		processMap.put(USERNAME_LOGIN, this::loginByUserName);
 	}

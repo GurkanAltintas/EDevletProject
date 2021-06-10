@@ -49,6 +49,12 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 	@Override
 	public SaveUserResponse saveUser(SaveUserRequest request) {
 		RequestValidator.validateSaveUserRequest(request);
+
+		boolean isUserExist = manageUserService.getUserByIdentityNumber(request.getIdentityNumber()) != null;
+		if (isUserExist) {
+			throw new RuntimeException("user already exists");
+		}
+
 		manageUserService.saveUser(RequestConverter.convertToUser(request));
 		return new SaveUserResponse();
 	}

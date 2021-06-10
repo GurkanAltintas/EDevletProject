@@ -16,6 +16,11 @@ public class ManageUserServiceImpl implements ManageUserService {
 	private ManageUserDao dao;
 
 	@Override
+	public User getUserByIdentityNumber(String identityNumber) {
+		return dao.findByIdentityNumber(identityNumber);
+	}
+
+	@Override
 	public User getUserByUsername(String userName) {
 		return dao.findByUsername(userName);
 	}

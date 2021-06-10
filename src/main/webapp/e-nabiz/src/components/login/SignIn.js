@@ -30,30 +30,26 @@ class SignIn extends Component {
         };
 
         fetch('http://localhost:8080/api/user/login', requestOptions)
-            .catch(error => {
-                console.log(error)
-                console.error('There was an error!', error);
-                alertify.error("Giriş Başarısız !")
+            .then(response =>
+                response.json().then(data => {
+                    if(data.data.canLogin){
+                        alertify.success("Başarılı !")
+                    }else{
+                        alertify.error("Giriş Başarısız")
 
-            });
+                    }
 
-
-
-
+                    }
+                ));
 
     }
-
-
-
-
-
     render() {
         return (
             <div>
 
                 <form onSubmit={this.handleSubmit} style={{textAlign: 'center'}}>
                     <FormGroup>
-                        <Input type="number"
+                        <Input type="text"
                                placeHolder="T.C. Kimlik Numarası Giriniz"
                                name="TC Kimlik No" id="TC"
                                onChange={this.handleChange}

@@ -49,20 +49,18 @@ class Register extends Component {
         };
 
         fetch('http://localhost:8080/api/user/saveUser', requestOptions)
-            .then(response => response.json())
-            .catch(error => {
-                console.log(error)
-                console.error('There was an error!', error);
-                alertify.error("Kayıt Olma Başarısız !")
-
-            }).then( a=>{
-            alertify.success("Kayıt Olma Başarılı !")
-            return  <Redirect  to="/aa" />
-            }
-
-        );
+            .then(response =>
+                response.json().then(data => {
+                    if(data.result.code==1000){
+                        console.log('There was an error!');
+                        alertify.error("Kayıt Olma Başarısız !")
+                    }else{
+                        alertify.success("Kayıt Olma Başarılı !")
+                    }
 
 
+                    }
+                ));
     }
 
     render() {

@@ -2,23 +2,32 @@ package com.edevlet.project.usecases.usermanage.entity;
 
 public class LoginRequest {
 
-	private String username;
+	private String loginValue;
 	private String password;
+	private Integer loginType;
+
+	public Integer getLoginType() {
+		return loginType;
+	}
+
+	public String getLoginValue() {
+		return loginValue;
+	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public String getUsername() {
-		return username;
+	public void setLoginType(Integer loginType) {
+		this.loginType = loginType;
+	}
+
+	public void setLoginValue(String loginValue) {
+		this.loginValue = loginValue;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 }

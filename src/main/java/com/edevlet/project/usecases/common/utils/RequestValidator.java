@@ -3,9 +3,21 @@ package com.edevlet.project.usecases.common.utils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.edevlet.project.usecases.mail.entity.SendMailRequest;
+import com.edevlet.project.usecases.usermanage.entity.LoginRequest;
 import com.edevlet.project.usecases.usermanage.entity.SaveUserRequest;
 
 public class RequestValidator {
+
+	public static void validateLoginRequest(LoginRequest request) {
+		if (StringUtils.isEmpty(request.getUsername())) {
+			throw new RuntimeException("Empty field: " + "UserName");
+		}
+
+		if (StringUtils.isEmpty(request.getPassword())) {
+			throw new RuntimeException("Empty field: " + "Password");
+		}
+
+	}
 
 	public static void validateSaveUserRequest(SaveUserRequest request) {
 		if (StringUtils.isEmpty(request.getIdentityNumber())) {

@@ -9,7 +9,7 @@ class SignIn extends Component {
 
     state = {
         username: 0,
-        password: '',
+        password: ''
     }
 
 
@@ -33,10 +33,10 @@ class SignIn extends Component {
             .then(response =>
                 response.json().then(data => {
                     if(data.data.canLogin){
-                        alertify.success("Başarılı !")
+                        alertify.success("Başarılı !");
+
                     }else{
                         alertify.error("Giriş Başarısız")
-
                     }
 
                     }
@@ -95,6 +95,7 @@ class SignIn extends Component {
                 <p className="text-success">
                     <a href="https://enabiz.gov.tr/Yardim/Index" target="_blank"> e-Devlet Üzerinden Nasıl Kayıt Olurum? </a>
                 </p>
+
 
 
             </div>

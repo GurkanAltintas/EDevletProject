@@ -1,6 +1,7 @@
 import { Container } from "reactstrap"
 import Login from "./components/login/Login";
 import Error from "./components/error/Error";
+import Home from "./components/home/Home";
 import Register from "./components/register/Register";
 import { BrowserRouter,Switch, Route } from "react-router-dom";
 function App() {
@@ -11,6 +12,7 @@ function App() {
                 <Switch>
                     <Route path="/" exact component={Login}/>
                     <Route path="/register" component={Register}/>
+                    <Route path="/home" component={Home}/>
                     <Route exact component={Error}/>
                     <Login/>
                 </Switch>

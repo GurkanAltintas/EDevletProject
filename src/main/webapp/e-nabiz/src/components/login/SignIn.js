@@ -1,18 +1,20 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {Button, FormGroup, Input, Row, Badge, CardText, Card, Container} from 'reactstrap';
+import alertify from "alertifyjs";
+import {Redirect} from "react-router";
 
 
 class SignIn extends Component {
 
     state = {
-        tc: 0,
+        username: 0,
         password: '',
     }
 
 
     handleChange = event => {
-        this.setState({tc: event.target.value})
+        this.setState({username: event.target.value})
     }
     handleChangeP = event => {
         this.setState({password: event.target.value})
@@ -21,10 +23,28 @@ class SignIn extends Component {
     handleSubmit = async event => {
         event.preventDefault()
 
-        {
-            console.log(this.state.password)
-        }
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(this.state)
+        };
+
+        fetch('http://localhost:8080/api/user/login', requestOptions)
+            .catch(error => {
+                console.log(error)
+                console.error('There was an error!', error);
+                alertify.error("Giriş Başarısız !")
+
+            });
+
+
+
+
+
     }
+
+
+
 
 
     render() {

@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {Button, Form, Col, FormGroup, Label, Input, FormText, Container} from 'reactstrap';
 import logo from "../../images/edevlet-logo.png"
 import logo2 from "../../images/e-nabiz-logo.jpg"
-import axios from "axios";
+import alertify from "alertifyjs"
+import {Link} from "react-router-dom";
+import {Redirect} from "react-router";
 
 class Register extends Component {
 
@@ -38,52 +40,39 @@ class Register extends Component {
         this.setState({phoneNumber: event.target.value})
     }
 
-
     submit = async event => {
         event.preventDefault()
-
-        console.log(JSON.stringify(this.state));
-
-        /*axios.post('http://localhost:8080/api/user/saveUser', JSON.stringify(this.state))
-            .then(response => {console.log(response)})
-            .catch(error => {
-                console.error('There was an error!', error);
-            });*/
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.state )
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(this.state)
         };
 
         fetch('http://localhost:8080/api/user/saveUser', requestOptions)
             .then(response => response.json())
             .catch(error => {
+                console.log(error)
                 console.error('There was an error!', error);
-            });
+                alertify.error("Kayıt Olma Başarısız !")
 
+            }).then( a=>{
+            alertify.success("Kayıt Olma Başarılı !")
+            return  <Redirect  to="/aa" />
+            }
 
+        );
 
 
     }
 
     render() {
-        const {
-            name,
-            surname,
-            identityNumber,
-            username,
-            password,
-            mailAdress,
-            phoneNumber
-
-        }=this.state
         return (
             <div>
                 <Container>
                     <th><a href="https://www.turkiye.gov.tr/"><img src={logo} width="1000" height="150"/></a></th>
                     <th><img src={logo2} width="600" height="150"/></th>
 
-                    <body>
+
                     <Form onSubmit={this.submit}>
                         <FormGroup>
                             <Label for="name">İsim</Label>
@@ -122,8 +111,10 @@ class Register extends Component {
                         </FormGroup>
 
                         <Button color="primary">Kayıt Ol</Button>
+                        <Button color="warning"><Link to="/">Giriş Ekranı</Link></Button>
+
+
                     </Form>
-                    </body>
                 </Container>
             </div>
 

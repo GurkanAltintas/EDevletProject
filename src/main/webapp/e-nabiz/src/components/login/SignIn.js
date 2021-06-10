@@ -40,7 +40,7 @@ class SignIn extends Component {
                         this.props.history.push("/home")
 
                     }else{
-                        alertify.error("Giriş Başarısız");
+                        alertify.error("Giriş Başarısız !!");
 
                     }
 

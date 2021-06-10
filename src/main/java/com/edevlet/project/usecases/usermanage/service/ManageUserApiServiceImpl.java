@@ -49,7 +49,7 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 		data.setCode("success");
 		data.setDetail("Successfull");
 
-		User user = manageUserService.getUserByUsername(request.getLoginValue());
+		User user = manageUserService.getUserByIdentityNumber(request.getLoginValue());
 		if (user == null) {
 			data.setCanLogin(false);
 			data.setCode("user.not.found");
@@ -75,7 +75,7 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 		data.setCode("success");
 		data.setDetail("Successfull");
 
-		User user = manageUserService.getUserByIdentityNumber(request.getLoginValue());
+		User user = manageUserService.getUserByUsername(request.getLoginValue());
 		if (user == null) {
 			data.setCanLogin(false);
 			data.setCode("user.not.found");

@@ -4,7 +4,7 @@ import logo from "../../images/edevlet-logo.png"
 import logo2 from "../../images/e-nabiz-logo.jpg"
 import alertify from "alertifyjs"
 import {Link} from "react-router-dom";
-import {Redirect} from "react-router";
+import { withRouter } from 'react-router-dom';
 
 class Register extends Component {
 
@@ -56,6 +56,7 @@ class Register extends Component {
                         alertify.error("Kayıt Olma Başarısız !")
                     }else{
                         alertify.success("Kayıt Olma Başarılı !")
+                        this.props.history.push("/")
                     }
 
 
@@ -109,7 +110,7 @@ class Register extends Component {
                         </FormGroup>
 
                         <Button color="primary">Kayıt Ol</Button>
-                        <Button color="warning"><Link to="/">Giriş Ekranı</Link></Button>
+                        <Button color="warning"><Link to="/">Giriş</Link></Button>
 
 
                     </Form>
@@ -120,4 +121,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default withRouter(Register);

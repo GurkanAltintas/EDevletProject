@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {Button, FormGroup, Input, Row, Badge, CardText, Card, Container} from 'reactstrap';
 import alertify from "alertifyjs";
+import { withRouter } from 'react-router-dom';
 import {Redirect} from "react-router";
+import {useHistory} from "react-router-dom"
 
 
 class SignIn extends Component {
@@ -11,6 +13,7 @@ class SignIn extends Component {
         username: 0,
         password: ''
     }
+
 
 
     handleChange = event => {
@@ -34,13 +37,18 @@ class SignIn extends Component {
                 response.json().then(data => {
                     if(data.data.canLogin){
                         alertify.success("Başarılı !");
+                        this.props.history.push("/home")
 
                     }else{
-                        alertify.error("Giriş Başarısız")
+                        alertify.error("Giriş Başarısız");
+
                     }
 
                     }
-                ));
+                )).catch(error=>{
+                    console.log(error)
+                    alertify.error("Something gone wrong !");
+        });
 
     }
     render() {
@@ -103,4 +111,4 @@ class SignIn extends Component {
     }
 }
 
-export default SignIn;
+export default withRouter(SignIn);

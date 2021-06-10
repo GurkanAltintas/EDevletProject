@@ -42,8 +42,21 @@ class Register extends Component {
     submit = async event => {
         event.preventDefault()
 
-        axios.post('http://localhost:8080/api/user/saveUser', this.state)
+        console.log(JSON.stringify(this.state));
+
+        /*axios.post('http://localhost:8080/api/user/saveUser', JSON.stringify(this.state))
             .then(response => {console.log(response)})
+            .catch(error => {
+                console.error('There was an error!', error);
+            });*/
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(this.state )
+        };
+
+        fetch('http://localhost:8080/api/user/saveUser', requestOptions)
+            .then(response => response.json())
             .catch(error => {
                 console.error('There was an error!', error);
             });

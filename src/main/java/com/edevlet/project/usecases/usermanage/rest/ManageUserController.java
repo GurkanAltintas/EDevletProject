@@ -1,10 +1,7 @@
 package com.edevlet.project.usecases.usermanage.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.edevlet.project.usecases.usermanage.entity.LoginRequest;
 import com.edevlet.project.usecases.usermanage.entity.LoginResponse;
@@ -14,6 +11,7 @@ import com.edevlet.project.usecases.usermanage.service.ManageUserApiService;
 
 @RestController
 @RequestMapping(value = "/api/user")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ManageUserController {
 
 	@Autowired

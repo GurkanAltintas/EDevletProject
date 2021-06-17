@@ -2,8 +2,6 @@ package com.edevlet.project.usecases.mail.sender;
 
 import java.util.Properties;
 
-import javax.mail.internet.MimeMessage;
-
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -31,16 +29,13 @@ public class GmailMailSender implements MailSender {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.debug", "true");
 
-		MimeMessagePreparator preparator = new MimeMessagePreparator() {
-			@Override
-			public void prepare(MimeMessage mimeMessage) throws Exception {
-				MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-				mimeMessageHelper.setFrom("oguztklu@gmail.com");
-				mimeMessageHelper.setTo(request.getMailAdress());
-				mimeMessageHelper.setSubject(request.getTopic());
-				mimeMessageHelper.setText(request.getMailText());
+		MimeMessagePreparator preparator = mimeMessage -> {
+			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+			mimeMessageHelper.setFrom("oguztklu@gmail.com");
+			mimeMessageHelper.setTo(request.getMailAdress());
+			mimeMessageHelper.setSubject(request.getTopic());
+			mimeMessageHelper.setText(request.getMailText());
 
-			}
 		};
 
 		try {

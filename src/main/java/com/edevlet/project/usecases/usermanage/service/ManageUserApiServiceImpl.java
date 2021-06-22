@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 import com.edevlet.project.usecases.common.entity.user.User;
 import com.edevlet.project.usecases.common.utils.RequestConverter;
 import com.edevlet.project.usecases.common.utils.RequestValidator;
+import com.edevlet.project.usecases.usermanage.entity.GetAllAnnouncementsResponse;
 import com.edevlet.project.usecases.usermanage.entity.LoginData;
 import com.edevlet.project.usecases.usermanage.entity.LoginRequest;
 import com.edevlet.project.usecases.usermanage.entity.LoginResponse;
+import com.edevlet.project.usecases.usermanage.entity.SaveAnnouncementRequest;
+import com.edevlet.project.usecases.usermanage.entity.SaveAnnouncementResponse;
 import com.edevlet.project.usecases.usermanage.entity.SaveUserRequest;
 import com.edevlet.project.usecases.usermanage.entity.SaveUserResponse;
 
@@ -28,6 +31,13 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 
 	@Autowired
 	private ManageUserService manageUserService;
+
+	@Override
+	public GetAllAnnouncementsResponse getAllAnnouncements() {
+		GetAllAnnouncementsResponse response = new GetAllAnnouncementsResponse();
+		response.setData(manageUserService.getAllAnnouncements());
+		return response;
+	}
 
 	@PostConstruct
 	private void init() {
@@ -93,6 +103,12 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 		response.setData(data);
 
 		return response;
+	}
+
+	@Override
+	public SaveAnnouncementResponse saveAnnouncement(SaveAnnouncementRequest request) {
+		manageUserService.saveAnnouncement(RequestConverter.convertToAnnouncement(request));
+		return new SaveAnnouncementResponse();
 	}
 
 	@Override

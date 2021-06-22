@@ -2,14 +2,22 @@ package com.edevlet.project.usecases.common.utils;
 
 import java.util.List;
 
+import com.edevlet.project.usecases.common.entity.user.Announcement;
 import com.edevlet.project.usecases.common.entity.user.User;
 import com.edevlet.project.usecases.common.rest.model.ApiError;
 import com.edevlet.project.usecases.common.rest.model.ApiStatus;
 import com.edevlet.project.usecases.mail.entity.MailResponse;
 import com.edevlet.project.usecases.mail.entity.SendMailResponse;
+import com.edevlet.project.usecases.usermanage.entity.SaveAnnouncementRequest;
 import com.edevlet.project.usecases.usermanage.entity.SaveUserRequest;
 
 public class RequestConverter {
+
+	public static Announcement convertToAnnouncement(SaveAnnouncementRequest request) {
+		Announcement obj = new Announcement();
+		obj.setAnnouncement(request.getAnnouncement());
+		return obj;
+	}
 
 	public static SendMailResponse convertToSenMailResponse(MailResponse mailResponse) {
 

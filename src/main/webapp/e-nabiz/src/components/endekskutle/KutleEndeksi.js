@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Form, FormGroup, Label, Input, Container} from "reactstrap";
-
+import logo from "../../images/edevlet-logo.png";
+import logo2 from "../../images/imzagirisi.png"
+import {Link} from "react-router-dom";
 class KutleEndeksi extends Component {
 
 
@@ -48,6 +50,9 @@ class KutleEndeksi extends Component {
                     <input type="submit" onClick={this.calculate} value="Hesapla"/>
                 </Form>
                 </Container>
+
+                <Link to="imza"><img src={logo2} width="350" height="250"/></Link>
+
             </div>
         );
     }

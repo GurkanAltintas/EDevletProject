@@ -4,6 +4,7 @@ import Error from "./components/error/Error";
 import Home from "./components/home/Home";
 import Register from "./components/register/Register";
 import { BrowserRouter,Switch, Route } from "react-router-dom";
+import Imzagiris from "./components/imzagiris/Imzagiris";
 function App() {
   return (
     <div className="App">
@@ -12,6 +13,7 @@ function App() {
                 <Switch>
                     <Route path="/" exact component={Login}/>
                     <Route path="/register" component={Register}/>
+                    <Route path="/imza" component={Imzagiris}/>
                     <Route path="/home" component={Home}/>
                     <Route exact component={Error}/>
                     <Login/>

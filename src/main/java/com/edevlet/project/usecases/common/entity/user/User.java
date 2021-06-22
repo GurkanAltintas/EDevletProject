@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "USERS")
-public class User {
+public class User implements DTOable{
 
 	@Id
 	@GeneratedValue

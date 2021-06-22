@@ -3,7 +3,7 @@ package com.edevlet.project.usecases.mail.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.edevlet.project.usecases.common.utils.RequestConverter;
+import com.edevlet.project.usecases.common.adapter.EntityToResponseAdapterImpl;
 import com.edevlet.project.usecases.common.utils.RequestValidator;
 import com.edevlet.project.usecases.mail.entity.MailRequest;
 import com.edevlet.project.usecases.mail.entity.MailResponse;
@@ -26,7 +26,8 @@ public class MailRestApiServiceImpl implements MailRestApiService {
 	public SendMailResponse sendMail(SendMailRequest request) {
 		RequestValidator.validateSendMailRequest(request);
 		MailResponse mailResponse = mailService.sendMail(convertToMailRequest(request));
-		return RequestConverter.convertToSenMailResponse(mailResponse);
+		return new EntityToResponseAdapterImpl().convertEntityToResponse(SendMailResponse.class, mailResponse);
+		// return RequestConverter.convertToSenMailResponse(mailResponse);
 	}
 
 }

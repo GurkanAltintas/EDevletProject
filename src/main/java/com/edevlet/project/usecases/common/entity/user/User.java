@@ -2,8 +2,6 @@ package com.edevlet.project.usecases.common.entity.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -13,11 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "USERS")
-public class User implements DTOable{
-
-	@Id
-	@GeneratedValue
-	private Long id;
+public class User extends BaseEntity {
 
 	@Column(name = "Name")
 	private String name;

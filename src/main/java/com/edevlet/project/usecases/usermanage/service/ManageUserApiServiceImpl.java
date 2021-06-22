@@ -9,8 +9,9 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.edevlet.project.usecases.common.adapter.RequestToEntityAdapterImpl;
+import com.edevlet.project.usecases.common.entity.user.Announcement;
 import com.edevlet.project.usecases.common.entity.user.User;
-import com.edevlet.project.usecases.common.utils.RequestConverter;
 import com.edevlet.project.usecases.common.utils.RequestValidator;
 import com.edevlet.project.usecases.usermanage.entity.GetAllAnnouncementsResponse;
 import com.edevlet.project.usecases.usermanage.entity.LoginData;
@@ -107,7 +108,8 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 
 	@Override
 	public SaveAnnouncementResponse saveAnnouncement(SaveAnnouncementRequest request) {
-		manageUserService.saveAnnouncement(RequestConverter.convertToAnnouncement(request));
+		manageUserService
+				.saveAnnouncement(new RequestToEntityAdapterImpl().convertRequestToEntity(Announcement.class, request));
 		return new SaveAnnouncementResponse();
 	}
 
@@ -120,7 +122,8 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 			throw new RuntimeException("user already exists");
 		}
 
-		manageUserService.saveUser(RequestConverter.convertToUser(request));
+		manageUserService.saveUser(new RequestToEntityAdapterImpl().convertRequestToEntity(User.class, request));
+		// manageUserService.saveUser(RequestConverter.convertToUser(request));
 		return new SaveUserResponse();
 	}
 

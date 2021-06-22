@@ -1,8 +1,6 @@
 package com.edevlet.project.usecases.common.entity.user;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -12,11 +10,8 @@ import lombok.Setter;
 @Table(name = "Announcements")
 @Getter
 @Setter
-public class Announcement {
+public class Announcement extends BaseEntity {
 
-	@Id
-	@GeneratedValue
-	private Integer id;
 	private String announcement;
 
 }

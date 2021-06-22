@@ -5,6 +5,8 @@ import Home from "./components/home/Home";
 import Register from "./components/register/Register";
 import { BrowserRouter,Switch, Route } from "react-router-dom";
 import Imzagiris from "./components/imzagiris/Imzagiris";
+import Admin from "./admin/Admin";
+import AdminProcess from "./admin/AdminProcess";
 function App() {
   return (
     <div className="App">
@@ -14,6 +16,8 @@ function App() {
                     <Route path="/" exact component={Login}/>
                     <Route path="/register" component={Register}/>
                     <Route path="/imza" component={Imzagiris}/>
+                    <Route path="/admin" component={Admin}/>
+                    <Route path="/adminProcess" component={AdminProcess}/>
                     <Route path="/home" component={Home}/>
                     <Route exact component={Error}/>
                     <Login/>

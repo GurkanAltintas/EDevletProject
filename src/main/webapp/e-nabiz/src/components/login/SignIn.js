@@ -79,9 +79,6 @@ class SignIn extends Component {
                         <Link to="/forgot" className="btn btn-lg"> Şifremi Unuttum </Link>
                     </Badge>
                 </form>
-                <Row >
-
-                </Row>
                 <Container >
 
 

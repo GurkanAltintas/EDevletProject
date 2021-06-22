@@ -48,6 +48,9 @@ class Navibar extends Component {
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
+                            <NavItem>
+                                <NavLink href="/home/duyurular">Duyurularım</NavLink>
+                            </NavItem>
                         </Nav>
                         <NavbarText>Simple Text</NavbarText>
                     </Collapse>

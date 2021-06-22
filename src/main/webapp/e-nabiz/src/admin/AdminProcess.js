@@ -1,24 +1,30 @@
 import React, {Component} from 'react';
-import {Container, Row} from "reactstrap";
+import {Col, Container, Row} from "reactstrap";
 import AdminNav from "./AdminNav";
+import Duyuru from "./Duyuru";
+import GetUser from "./GetUser";
 
 class AdminProcess extends Component {
 
-    state={
-        duyuru:false,
-        kullanıcı:false
+    state = {
+        duyuru: false,
+        kullanıcı: false
     }
+    changeDuyuru = () => {
+        this.setState({duyuru: true})
+    }
+
     render() {
         return (
             <div>
                 <Container>
-                    <Row >
+                    <Row>
                         <AdminNav state={this.state}/>
 
                     </Row>
                     <Row>
 
-                        <h1>eheuhuhu</h1>
+
                     </Row>
                 </Container>
 

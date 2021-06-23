@@ -11,6 +11,10 @@ import Duyuru from "./admin/Duyuru";
 import Duyurularım from "./components/home/Duyurularım";
 import FeedbackHome from "./components/home/feedback/FeedbackHome";
 import Feedback from "./admin/Feedback";
+import Hastalık from "./components/home/hastalık/Hastalık";
+import Rapor from "./components/home/rapor/Rapor";
+import Recete from "./components/home/recete/Recete";
+import Ziyaret from "./components/home/ziyaret/Ziyaret";
 function App() {
   return (
     <div className="App">
@@ -27,6 +31,10 @@ function App() {
                     <Route path="/feedbacks" component={Feedback}/>
                     <Route path="/adminProcess" component={AdminProcess}/>
                     <Route path="/home" component={Home}/>
+                    <Route path="/hastalik" component={Hastalık}/>
+                    <Route path="/rapor" component={Rapor}/>
+                    <Route path="/recete" component={Recete}/>
+                    <Route path="/ziyaret" component={Ziyaret}/>
                     <Route exact component={Error}/>
                     <Login/>
                 </Switch>

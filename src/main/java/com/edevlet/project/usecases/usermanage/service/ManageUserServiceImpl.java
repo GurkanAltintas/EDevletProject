@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edevlet.project.usecases.common.entity.user.Announcement;
+import com.edevlet.project.usecases.common.entity.user.Feedback;
 import com.edevlet.project.usecases.common.entity.user.User;
 import com.edevlet.project.usecases.usermanage.dao.AnnouncemntRepository;
+import com.edevlet.project.usecases.usermanage.dao.FeedBackDao;
 import com.edevlet.project.usecases.usermanage.dao.ManageUserDao;
 
 @Service
@@ -17,7 +19,10 @@ import com.edevlet.project.usecases.usermanage.dao.ManageUserDao;
 public class ManageUserServiceImpl implements ManageUserService {
 
 	@Autowired
-	private ManageUserDao dao;
+	private ManageUserDao manageUserDao;
+
+	@Autowired
+	FeedBackDao feedbackDao;
 
 	@Autowired
 	AnnouncemntRepository announcemntRepository;
@@ -28,13 +33,18 @@ public class ManageUserServiceImpl implements ManageUserService {
 	}
 
 	@Override
+	public List<Feedback> getAllFeedbacks() {
+		return feedbackDao.findAll();
+	}
+
+	@Override
 	public User getUserByIdentityNumber(String identityNumber) {
-		return dao.findByIdentityNumber(identityNumber);
+		return manageUserDao.findByIdentityNumber(identityNumber);
 	}
 
 	@Override
 	public User getUserByUsername(String userName) {
-		return dao.findByUsername(userName);
+		return manageUserDao.findByUsername(userName);
 	}
 
 	@Override
@@ -43,8 +53,13 @@ public class ManageUserServiceImpl implements ManageUserService {
 	}
 
 	@Override
+	public void saveFeedBack(Feedback entity) {
+		feedbackDao.save(entity);
+	}
+
+	@Override
 	public void saveUser(User user) {
-		dao.save(user);
+		manageUserDao.save(user);
 	}
 
 }

@@ -2,11 +2,13 @@ package com.edevlet.project.usecases.common.adapter;
 
 import java.util.List;
 
+import com.edevlet.project.usecases.common.entity.user.Feedback;
 import com.edevlet.project.usecases.common.rest.model.AbstractCommonResponse;
 import com.edevlet.project.usecases.common.rest.model.ApiError;
 import com.edevlet.project.usecases.common.rest.model.ApiStatus;
 import com.edevlet.project.usecases.mail.entity.MailResponse;
 import com.edevlet.project.usecases.mail.entity.SendMailResponse;
+import com.edevlet.project.usecases.usermanage.entity.GetAllFeedBacksResponse;
 
 public class EntityToResponseAdapterImpl implements EntityToResponseAdapter {
 
@@ -18,7 +20,17 @@ public class EntityToResponseAdapterImpl implements EntityToResponseAdapter {
 			return (T) convertToSendMailResponse((MailResponse) entity);
 		}
 
+		if (GetAllFeedBacksResponse.class.isAssignableFrom(desiredResponseType)) {
+			return (T) convertToGetAllFeedBacksResponse((List<Feedback>) entity);
+		}
+
 		return null;
+	}
+
+	private GetAllFeedBacksResponse convertToGetAllFeedBacksResponse(List<Feedback> feedbackList) {
+		GetAllFeedBacksResponse response = new GetAllFeedBacksResponse();
+		response.setData(feedbackList);
+		return response;
 	}
 
 	private SendMailResponse convertToSendMailResponse(MailResponse mailResponse) {

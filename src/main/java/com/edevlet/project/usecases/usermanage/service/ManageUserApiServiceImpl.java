@@ -9,11 +9,21 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.edevlet.project.usecases.common.adapter.EntityToResponseAdapter;
+import com.edevlet.project.usecases.common.adapter.EntityToResponseAdapterImpl;
 import com.edevlet.project.usecases.common.adapter.RequestToEntityAdapterImpl;
+import com.edevlet.project.usecases.common.command.Broker;
+import com.edevlet.project.usecases.common.command.CheckFeedBackOperation;
+import com.edevlet.project.usecases.common.command.FeedBackOperator;
+import com.edevlet.project.usecases.common.command.SaveFeedBackOperation;
 import com.edevlet.project.usecases.common.entity.user.Announcement;
+import com.edevlet.project.usecases.common.entity.user.Feedback;
 import com.edevlet.project.usecases.common.entity.user.User;
 import com.edevlet.project.usecases.common.utils.RequestValidator;
+import com.edevlet.project.usecases.usermanage.entity.FeedBackRequest;
+import com.edevlet.project.usecases.usermanage.entity.FeedBackResponse;
 import com.edevlet.project.usecases.usermanage.entity.GetAllAnnouncementsResponse;
+import com.edevlet.project.usecases.usermanage.entity.GetAllFeedBacksResponse;
 import com.edevlet.project.usecases.usermanage.entity.LoginData;
 import com.edevlet.project.usecases.usermanage.entity.LoginRequest;
 import com.edevlet.project.usecases.usermanage.entity.LoginResponse;
@@ -34,10 +44,39 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 	private ManageUserService manageUserService;
 
 	@Override
+	public FeedBackResponse feedBack(FeedBackRequest request) {
+		String feedback = request.getFeedback();
+
+		FeedBackOperator feedBackOperator = new FeedBackOperator();
+		feedBackOperator.setMessage(feedback);
+
+		CheckFeedBackOperation checkFeedBack = new CheckFeedBackOperation(feedBackOperator);
+		SaveFeedBackOperation saveFeedBack = new SaveFeedBackOperation(feedBackOperator);
+
+		Broker broker = new Broker();
+		broker.takeOrder(checkFeedBack);
+		broker.takeOrder(saveFeedBack);
+		broker.placeOrders();
+
+		Feedback entity = new Feedback();
+		entity.setFeedBack(feedBackOperator.getMessage());
+
+		manageUserService.saveFeedBack(entity);
+		return new FeedBackResponse();
+	}
+
+	@Override
 	public GetAllAnnouncementsResponse getAllAnnouncements() {
 		GetAllAnnouncementsResponse response = new GetAllAnnouncementsResponse();
 		response.setData(manageUserService.getAllAnnouncements());
 		return response;
+	}
+
+	@Override
+	public GetAllFeedBacksResponse getAllFeedBacks() {
+		EntityToResponseAdapter entityToResponseAdapter = new EntityToResponseAdapterImpl();
+		return entityToResponseAdapter.convertEntityToResponse(GetAllFeedBacksResponse.class,
+				manageUserService.getAllFeedbacks());
 	}
 
 	@PostConstruct

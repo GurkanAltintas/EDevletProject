@@ -39,7 +39,7 @@ class KutleEndeksi extends Component {
                         <Input type="number"   onChange={this.handleChange} id="boy" placeholder="Boy giriniz" />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="kilo">Boy</Label>
+                        <Label for="kilo">Kilo</Label>
                         <Input type="number"  value={this.state.kilo} onChange={this.handleChangeKilo} id="kilo" placeholder="Kilo giriniz" />
                     </FormGroup>
                     <FormGroup>

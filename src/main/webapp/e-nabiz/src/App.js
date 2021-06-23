@@ -9,6 +9,8 @@ import Admin from "./admin/Admin";
 import AdminProcess from "./admin/AdminProcess";
 import Duyuru from "./admin/Duyuru";
 import Duyurularım from "./components/home/Duyurularım";
+import FeedbackHome from "./components/home/feedback/FeedbackHome";
+import Feedback from "./admin/Feedback";
 function App() {
   return (
     <div className="App">
@@ -21,6 +23,8 @@ function App() {
                     <Route path="/duyuru" component={Duyuru}/>
                     <Route path="/home/duyurular" component={Duyurularım}/>
                     <Route path="/admin" component={Admin}/>
+                    <Route path="/geribildirim" component={FeedbackHome}/>
+                    <Route path="/feedbacks" component={Feedback}/>
                     <Route path="/adminProcess" component={AdminProcess}/>
                     <Route path="/home" component={Home}/>
                     <Route exact component={Error}/>

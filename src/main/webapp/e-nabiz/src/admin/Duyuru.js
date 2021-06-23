@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Badge, Button, FormGroup, Input} from "reactstrap";
 import { withRouter } from 'react-router-dom';
 import alertify from "alertifyjs";
+import AdminNav from "./AdminNav";
 
 class Duyuru extends Component {
 
@@ -41,6 +42,7 @@ class Duyuru extends Component {
     render() {
         return (
             <div>
+                <AdminNav/>
                 <form onSubmit={this.handleSubmit} style={{textAlign: 'center'}}>
                     <FormGroup>
                         <Input type="textarea"

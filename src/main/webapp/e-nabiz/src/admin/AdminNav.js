@@ -9,6 +9,7 @@ class AdminNav extends Component {
                         <NavbarBrand href="/" className="mr-auto">E-Nabız Giriş</NavbarBrand>
                         <NavbarBrand href="/duyuru" className="mr-auto">Duyuru yap</NavbarBrand>
                         <NavbarBrand href="/users" className="mr-auto">Kullanıcılar</NavbarBrand>
+                        <NavbarBrand href="/feedbacks" className="mr-auto">Geri Dönüşler</NavbarBrand>
                         <NavbarToggler  className="mr-2"  />
 
                     </Navbar>

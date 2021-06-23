@@ -6,10 +6,7 @@ import GetUser from "./GetUser";
 
 class AdminProcess extends Component {
 
-    state = {
-        duyuru: false,
-        kullanıcı: false
-    }
+
     changeDuyuru = () => {
         this.setState({duyuru: true})
     }
@@ -19,7 +16,7 @@ class AdminProcess extends Component {
             <div>
                 <Container>
                     <Row>
-                        <AdminNav state={this.state}/>
+                        <AdminNav/>
 
                     </Row>
                     <Row>

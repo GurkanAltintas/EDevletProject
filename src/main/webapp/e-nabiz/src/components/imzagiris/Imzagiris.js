@@ -24,6 +24,8 @@ class Imzagiris extends Component {
     handleSubmit = async event => {
         event.preventDefault()
 
+        this.props.func(this.state.loginValue);
+
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},

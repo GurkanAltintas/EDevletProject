@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-
+import hata from "../../images/error.png"
+import {Link} from "react-router-dom";
 class Error extends Component {
     render() {
         return (
             <div>
-                <h1>An error occured !! SG AMK BEDEVISI</h1>
+                <Link to="/home"> <img src={hata}/> </Link>
             </div>
         );
     }

@@ -1,11 +1,14 @@
 package com.edevlet.project.usecases.usermanage.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +22,12 @@ import com.edevlet.project.usecases.common.command.SaveFeedBackOperation;
 import com.edevlet.project.usecases.common.entity.user.Announcement;
 import com.edevlet.project.usecases.common.entity.user.Feedback;
 import com.edevlet.project.usecases.common.entity.user.User;
+import com.edevlet.project.usecases.common.entity.user.Vizit;
 import com.edevlet.project.usecases.common.utils.RequestValidator;
 import com.edevlet.project.usecases.usermanage.entity.FeedBackRequest;
 import com.edevlet.project.usecases.usermanage.entity.FeedBackResponse;
+import com.edevlet.project.usecases.usermanage.entity.FetchVizitsRequest;
+import com.edevlet.project.usecases.usermanage.entity.FetchVizitsResponse;
 import com.edevlet.project.usecases.usermanage.entity.GetAllAnnouncementsResponse;
 import com.edevlet.project.usecases.usermanage.entity.GetAllFeedBacksResponse;
 import com.edevlet.project.usecases.usermanage.entity.LoginData;
@@ -31,6 +37,7 @@ import com.edevlet.project.usecases.usermanage.entity.SaveAnnouncementRequest;
 import com.edevlet.project.usecases.usermanage.entity.SaveAnnouncementResponse;
 import com.edevlet.project.usecases.usermanage.entity.SaveUserRequest;
 import com.edevlet.project.usecases.usermanage.entity.SaveUserResponse;
+import com.edevlet.project.usecases.usermanage.entity.VizitDTO;
 
 @Service
 public class ManageUserApiServiceImpl implements ManageUserApiService {
@@ -63,6 +70,30 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 
 		manageUserService.saveFeedBack(entity);
 		return new FeedBackResponse();
+	}
+
+	@Override
+	public FetchVizitsResponse fetchVizits(FetchVizitsRequest request) {
+
+		boolean isTcKimlikNo = NumberUtils.isCreatable(request.getUserInfo());
+
+		List<Vizit> allVizits = manageUserService.getAllVizits();
+
+		List<Vizit> userVizits = allVizits.stream()
+				.filter(f -> isTcKimlikNo ? f.getUser().getIdentityNumber().equals(request.getUserInfo())
+						: f.getUser().getUsername().equals(request.getUserInfo()))
+				.collect(Collectors.toList());
+
+		FetchVizitsResponse response = new FetchVizitsResponse();
+		response.setData(userVizits.stream().map(m -> {
+			VizitDTO dto = new VizitDTO();
+			dto.setClinicName(m.getClinic().getClinicName());
+			dto.setDoctorName(m.get);
+
+			return null;
+		}).collect(Collectors.toList()));
+
+		return null;
 	}
 
 	@Override

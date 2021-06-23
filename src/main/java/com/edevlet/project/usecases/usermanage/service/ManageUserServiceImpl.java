@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import com.edevlet.project.usecases.common.entity.user.Announcement;
 import com.edevlet.project.usecases.common.entity.user.Feedback;
 import com.edevlet.project.usecases.common.entity.user.User;
+import com.edevlet.project.usecases.common.entity.user.Vizit;
 import com.edevlet.project.usecases.usermanage.dao.AnnouncemntRepository;
 import com.edevlet.project.usecases.usermanage.dao.FeedBackDao;
 import com.edevlet.project.usecases.usermanage.dao.ManageUserDao;
+import com.edevlet.project.usecases.usermanage.dao.VizitDao;
 
 @Service
 @Transactional
@@ -25,6 +27,9 @@ public class ManageUserServiceImpl implements ManageUserService {
 	FeedBackDao feedbackDao;
 
 	@Autowired
+	VizitDao vizitDao;
+
+	@Autowired
 	AnnouncemntRepository announcemntRepository;
 
 	@Override
@@ -35,6 +40,12 @@ public class ManageUserServiceImpl implements ManageUserService {
 	@Override
 	public List<Feedback> getAllFeedbacks() {
 		return feedbackDao.findAll();
+	}
+
+	@Override
+	public List<Vizit> getAllVizits() {
+
+		return vizitDao.findAll();
 	}
 
 	@Override

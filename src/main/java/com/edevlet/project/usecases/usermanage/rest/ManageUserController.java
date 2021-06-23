@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edevlet.project.usecases.usermanage.dao.ClinicDao;
-import com.edevlet.project.usecases.usermanage.dao.HospitalDao;
 import com.edevlet.project.usecases.usermanage.entity.FeedBackRequest;
 import com.edevlet.project.usecases.usermanage.entity.FeedBackResponse;
+import com.edevlet.project.usecases.usermanage.entity.FetchVizitsRequest;
+import com.edevlet.project.usecases.usermanage.entity.FetchVizitsResponse;
 import com.edevlet.project.usecases.usermanage.entity.GetAllAnnouncementsResponse;
 import com.edevlet.project.usecases.usermanage.entity.GetAllFeedBacksResponse;
 import com.edevlet.project.usecases.usermanage.entity.LoginRequest;
@@ -28,17 +28,16 @@ import com.edevlet.project.usecases.usermanage.service.ManageUserApiService;
 public class ManageUserController {
 
 	@Autowired
-	HospitalDao hospitalDao;
-
-	@Autowired
-	ClinicDao clinicDao;
-
-	@Autowired
 	private ManageUserApiService manageUserApiService;
 
 	@PostMapping("/feedBack")
 	public FeedBackResponse feedBack(@RequestBody FeedBackRequest request) {
 		return manageUserApiService.feedBack(request);
+	}
+
+	@PostMapping("/fetchVizits")
+	public FetchVizitsResponse fetchVizits(@RequestBody FetchVizitsRequest request) {
+		return manageUserApiService.fetchVizits(request);
 	}
 
 	@GetMapping("/admin/getAllAnnouncements")

@@ -5,12 +5,15 @@ import java.util.List;
 import com.edevlet.project.usecases.common.entity.user.Announcement;
 import com.edevlet.project.usecases.common.entity.user.Feedback;
 import com.edevlet.project.usecases.common.entity.user.User;
+import com.edevlet.project.usecases.common.entity.user.Vizit;
 
 public interface ManageUserService {
 
 	List<Announcement> getAllAnnouncements();
 
 	List<Feedback> getAllFeedbacks();
+
+	List<Vizit> getAllVizits();
 
 	User getUserByIdentityNumber(String identityNumber);
 

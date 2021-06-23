@@ -2,12 +2,19 @@ package com.edevlet.project.usecases.usermanage.entity;
 
 import java.time.LocalDateTime;
 
+import com.edevlet.project.usecases.common.rest.json.LocalDateTimeyyyyMMddHHmmssMinusSeperatedDeserializer;
+import com.edevlet.project.usecases.common.rest.json.LocalDateTimeyyyyMMddHHmmssMinusSeperatedSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 public class VizitDTO {
 
 	private String hospitalName;
 	private String clinicName;
 	private String doctorName;
 	private String trackingNumber;
+	@JsonSerialize(using = LocalDateTimeyyyyMMddHHmmssMinusSeperatedSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeyyyyMMddHHmmssMinusSeperatedDeserializer.class)
 	private LocalDateTime vizitDate;
 
 	public String getClinicName() {

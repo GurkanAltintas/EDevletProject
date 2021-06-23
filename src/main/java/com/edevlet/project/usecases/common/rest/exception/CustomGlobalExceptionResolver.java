@@ -29,6 +29,8 @@ public class CustomGlobalExceptionResolver {
 		error.setCode(e.getMessage());
 		error.setExplanation(ExceptionUtils.getStackTrace(e));
 
+		System.out.println(ExceptionUtils.getStackTrace(e));
+
 		ApiResult apiResult = new ApiResult();
 		apiResult.setCode(ApiStatus.EXCEPTION.getCode());
 		apiResult.setDetail("A runtime exception occurred");
@@ -38,6 +40,7 @@ public class CustomGlobalExceptionResolver {
 		GlobalExceptionResponse globalExceptionResponse = new GlobalExceptionResponse();
 		globalExceptionResponse.setResult(apiResult);
 
+		// TODO: monadda da cagre bulalım
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setStatus(HttpStatus.OK.value());
 

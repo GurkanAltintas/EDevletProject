@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edevlet.project.usecases.usermanage.entity.FeedBackRequest;
 import com.edevlet.project.usecases.usermanage.entity.FeedBackResponse;
+import com.edevlet.project.usecases.usermanage.entity.FetchDiseasesRequest;
+import com.edevlet.project.usecases.usermanage.entity.FetchDiseasesResponse;
+import com.edevlet.project.usecases.usermanage.entity.FetchRecipesRequest;
+import com.edevlet.project.usecases.usermanage.entity.FetchRecipesResponse;
+import com.edevlet.project.usecases.usermanage.entity.FetchReportsRequest;
+import com.edevlet.project.usecases.usermanage.entity.FetchReportsResponse;
 import com.edevlet.project.usecases.usermanage.entity.FetchVizitsRequest;
 import com.edevlet.project.usecases.usermanage.entity.FetchVizitsResponse;
 import com.edevlet.project.usecases.usermanage.entity.GetAllAnnouncementsResponse;
@@ -33,6 +39,21 @@ public class ManageUserController {
 	@PostMapping("/feedBack")
 	public FeedBackResponse feedBack(@RequestBody FeedBackRequest request) {
 		return manageUserApiService.feedBack(request);
+	}
+
+	@PostMapping("/fetchDiseases")
+	public FetchDiseasesResponse fetchDiseases(@RequestBody FetchDiseasesRequest request) {
+		return manageUserApiService.fetchDiseases(request);
+	}
+
+	@PostMapping("/fetchRecipes")
+	public FetchRecipesResponse fetchRecipes(@RequestBody FetchRecipesRequest request) {
+		return manageUserApiService.fetchRecipes(request);
+	}
+
+	@PostMapping("/fetchReports")
+	public FetchReportsResponse fetchReports(@RequestBody FetchReportsRequest request) {
+		return manageUserApiService.fetchReports(request);
 	}
 
 	@PostMapping("/fetchVizits")

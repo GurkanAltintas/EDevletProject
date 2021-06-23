@@ -33,4 +33,7 @@ public class Vizit {
 	private Clinic clinic;
 	private LocalDateTime vizitDate;
 	private String trackingNumber;
+	@ManyToOne
+	@JoinColumn(name = "DoctorId")
+	private Doctor doctor;
 }

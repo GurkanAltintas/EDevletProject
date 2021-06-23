@@ -20,12 +20,22 @@ import com.edevlet.project.usecases.common.command.CheckFeedBackOperation;
 import com.edevlet.project.usecases.common.command.FeedBackOperator;
 import com.edevlet.project.usecases.common.command.SaveFeedBackOperation;
 import com.edevlet.project.usecases.common.entity.user.Announcement;
+import com.edevlet.project.usecases.common.entity.user.Disease;
 import com.edevlet.project.usecases.common.entity.user.Feedback;
+import com.edevlet.project.usecases.common.entity.user.Recipe;
+import com.edevlet.project.usecases.common.entity.user.Report;
 import com.edevlet.project.usecases.common.entity.user.User;
 import com.edevlet.project.usecases.common.entity.user.Vizit;
 import com.edevlet.project.usecases.common.utils.RequestValidator;
+import com.edevlet.project.usecases.usermanage.entity.DiseaseDTO;
 import com.edevlet.project.usecases.usermanage.entity.FeedBackRequest;
 import com.edevlet.project.usecases.usermanage.entity.FeedBackResponse;
+import com.edevlet.project.usecases.usermanage.entity.FetchDiseasesRequest;
+import com.edevlet.project.usecases.usermanage.entity.FetchDiseasesResponse;
+import com.edevlet.project.usecases.usermanage.entity.FetchRecipesRequest;
+import com.edevlet.project.usecases.usermanage.entity.FetchRecipesResponse;
+import com.edevlet.project.usecases.usermanage.entity.FetchReportsRequest;
+import com.edevlet.project.usecases.usermanage.entity.FetchReportsResponse;
 import com.edevlet.project.usecases.usermanage.entity.FetchVizitsRequest;
 import com.edevlet.project.usecases.usermanage.entity.FetchVizitsResponse;
 import com.edevlet.project.usecases.usermanage.entity.GetAllAnnouncementsResponse;
@@ -33,6 +43,8 @@ import com.edevlet.project.usecases.usermanage.entity.GetAllFeedBacksResponse;
 import com.edevlet.project.usecases.usermanage.entity.LoginData;
 import com.edevlet.project.usecases.usermanage.entity.LoginRequest;
 import com.edevlet.project.usecases.usermanage.entity.LoginResponse;
+import com.edevlet.project.usecases.usermanage.entity.RecipeDTO;
+import com.edevlet.project.usecases.usermanage.entity.ReportDTO;
 import com.edevlet.project.usecases.usermanage.entity.SaveAnnouncementRequest;
 import com.edevlet.project.usecases.usermanage.entity.SaveAnnouncementResponse;
 import com.edevlet.project.usecases.usermanage.entity.SaveUserRequest;
@@ -73,6 +85,88 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 	}
 
 	@Override
+	public FetchDiseasesResponse fetchDiseases(FetchDiseasesRequest request) {
+
+		boolean isTcKimlikNo = NumberUtils.isCreatable(request.getUserInfo());
+
+		// TODO: @oguzt, kod tekrarina çözüm bulalım
+		List<Disease> diseaseList = manageUserService.getAllDisease();
+		List<Disease> userDiseaseList = diseaseList.stream()
+				.filter(f -> isTcKimlikNo ? f.getUser().getIdentityNumber().equals(request.getUserInfo())
+						: f.getUser().getUsername().equals(request.getUserInfo()))
+				.collect(Collectors.toList());
+
+		FetchDiseasesResponse response = new FetchDiseasesResponse();
+		response.setData(userDiseaseList.stream().map(m -> {
+
+			DiseaseDTO dto = new DiseaseDTO();
+			dto.setClinic(m.getClinic().getClinicName());
+			dto.setDiagnosis(m.getDiagnosis());
+			dto.setDiagnosisDate(m.getDiagnosisDate());
+			dto.setDoctor(m.getDoctor().getDoctorName());
+
+			return dto;
+		}).collect(Collectors.toList()));
+		return response;
+	}
+
+	// TODO: İterator.
+
+	@Override
+	public FetchRecipesResponse fetchRecipes(FetchRecipesRequest request) {
+
+		boolean isTcKimlikNo = NumberUtils.isCreatable(request.getUserInfo());
+
+		List<Recipe> allRecipes = manageUserService.getAllRecipes();
+		List<Recipe> userRecipes = allRecipes.stream()
+				.filter(f -> isTcKimlikNo ? f.getUser().getIdentityNumber().equals(request.getUserInfo())
+						: f.getUser().getUsername().equals(request.getUserInfo()))
+				.collect(Collectors.toList());
+
+		FetchRecipesResponse response = new FetchRecipesResponse();
+		response.setData(userRecipes.stream().map(m -> {
+
+			RecipeDTO dto = new RecipeDTO();
+			dto.setDoctor(m.getDoctor().getDoctorName());
+			dto.setRecepiDate(m.getRecepiDate());
+			dto.setRecepiNumber(m.getRecepiNumber());
+			dto.setRecepiType(m.getRecepiType());
+
+			return dto;
+		}).collect(Collectors.toList()));
+
+		return response;
+	}
+
+	@Override
+	public FetchReportsResponse fetchReports(FetchReportsRequest request) {
+
+		boolean isTcKimlikNo = NumberUtils.isCreatable(request.getUserInfo());
+		List<Report> reportList = manageUserService.getAllReports();
+		List<Report> userReportList = reportList.stream()
+				.filter(f -> isTcKimlikNo ? f.getUser().getIdentityNumber().equals(request.getUserInfo())
+						: f.getUser().getUsername().equals(request.getUserInfo()))
+				.collect(Collectors.toList());
+
+		FetchReportsResponse response = new FetchReportsResponse();
+		response.setData(userReportList.stream().map(m -> {
+
+			ReportDTO dto = new ReportDTO();
+			dto.setDiagnosis(m.getDiagnosis());
+			dto.setEndDate(m.getEndDate());
+			dto.setReportDate(m.getReportDate());
+			dto.setReportNumber(m.getReportNumber());
+			dto.setReportTrackingNumber(m.getReportTrackingNumber());
+			dto.setReportType(m.getReportType());
+			dto.setStartDate(m.getStartDate());
+
+			return dto;
+		}).collect(Collectors.toList()));
+
+		return response;
+	}
+
+	@Override
 	public FetchVizitsResponse fetchVizits(FetchVizitsRequest request) {
 
 		boolean isTcKimlikNo = NumberUtils.isCreatable(request.getUserInfo());
@@ -88,12 +182,15 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 		response.setData(userVizits.stream().map(m -> {
 			VizitDTO dto = new VizitDTO();
 			dto.setClinicName(m.getClinic().getClinicName());
-			dto.setDoctorName(m.get);
+			dto.setDoctorName(m.getDoctor().getDoctorName());
+			dto.setHospitalName(m.getHospital().getHospitalName());
+			dto.setTrackingNumber(m.getTrackingNumber());
+			dto.setVizitDate(m.getVizitDate());
 
-			return null;
+			return dto;
 		}).collect(Collectors.toList()));
 
-		return null;
+		return response;
 	}
 
 	@Override

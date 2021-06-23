@@ -1,7 +1,6 @@
 package com.edevlet.project.usecases.common.adapter;
 
 import com.edevlet.project.usecases.common.entity.user.Announcement;
-import com.edevlet.project.usecases.common.entity.user.BaseEntity;
 import com.edevlet.project.usecases.common.entity.user.User;
 import com.edevlet.project.usecases.usermanage.entity.SaveAnnouncementRequest;
 import com.edevlet.project.usecases.usermanage.entity.SaveUserRequest;
@@ -10,7 +9,7 @@ public class RequestToEntityAdapterImpl implements RequestToEntityAdapter {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T extends BaseEntity, R> T convertRequestToEntity(Class<T> desiredType, R request) {
+	public <T, R> T convertRequestToEntity(Class<T> desiredType, R request) {
 
 		if (Announcement.class.isAssignableFrom(desiredType) && request instanceof SaveAnnouncementRequest) {
 			return (T) convertToAnnouncement((SaveAnnouncementRequest) request);

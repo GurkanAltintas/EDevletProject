@@ -2,7 +2,6 @@ package com.edevlet.project.usecases.common.adapter;
 
 import java.util.List;
 
-import com.edevlet.project.usecases.common.entity.user.BaseEntity;
 import com.edevlet.project.usecases.common.rest.model.AbstractCommonResponse;
 import com.edevlet.project.usecases.common.rest.model.ApiError;
 import com.edevlet.project.usecases.common.rest.model.ApiStatus;
@@ -13,8 +12,7 @@ public class EntityToResponseAdapterImpl implements EntityToResponseAdapter {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T extends AbstractCommonResponse, K extends BaseEntity> T convertEntityToResponse(
-			Class<T> desiredResponseType, K entity) {
+	public <T extends AbstractCommonResponse, K> T convertEntityToResponse(Class<T> desiredResponseType, K entity) {
 
 		if (SendMailResponse.class.isAssignableFrom(desiredResponseType) && entity instanceof MailResponse) {
 			return (T) convertToSendMailResponse((MailResponse) entity);

@@ -10,13 +10,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Announcements")
+@Table(name = "DOCTORS")
 @Getter
 @Setter
-public class Announcement {
+public class Doctor {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private String announcement;
-
+	private Integer doctorId;
+	private String doctorName;
+	private String doctorSurname;
 }

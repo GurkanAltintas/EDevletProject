@@ -1,13 +1,11 @@
 package com.edevlet.project.usecases.mail.entity;
 
-import com.edevlet.project.usecases.common.entity.user.BaseEntity;
-
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder(setterPrefix = "with")
-public class MailResponse extends BaseEntity {
+public class MailResponse {
 
 	private final boolean success;
 	private final String errorCode;

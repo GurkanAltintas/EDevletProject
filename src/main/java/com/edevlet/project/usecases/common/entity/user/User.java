@@ -2,6 +2,9 @@ package com.edevlet.project.usecases.common.entity.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -11,7 +14,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "USERS")
-public class User extends BaseEntity {
+public class User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
 	@Column(name = "Name")
 	private String name;

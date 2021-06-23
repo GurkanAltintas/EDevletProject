@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.edevlet.project.usecases.usermanage.dao.ClinicDao;
+import com.edevlet.project.usecases.usermanage.dao.HospitalDao;
 import com.edevlet.project.usecases.usermanage.entity.GetAllAnnouncementsResponse;
 import com.edevlet.project.usecases.usermanage.entity.LoginRequest;
 import com.edevlet.project.usecases.usermanage.entity.LoginResponse;
@@ -23,11 +25,16 @@ import com.edevlet.project.usecases.usermanage.service.ManageUserApiService;
 public class ManageUserController {
 
 	@Autowired
+	HospitalDao hospitalDao;
+
+	@Autowired
+	ClinicDao clinicDao;
+
+	@Autowired
 	private ManageUserApiService manageUserApiService;
 
 	@GetMapping("/admin/getAllAnnouncements")
 	public GetAllAnnouncementsResponse getAllAnnouncements() {
-
 		return manageUserApiService.getAllAnnouncements();
 	}
 

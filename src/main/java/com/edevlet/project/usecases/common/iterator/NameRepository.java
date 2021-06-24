@@ -34,8 +34,8 @@ public class NameRepository implements Container {
 
 	@Override
 	public Iterator getIterator() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return new NameIterator();
 	}
 
 }

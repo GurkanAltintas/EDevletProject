@@ -1,5 +1,6 @@
 package com.edevlet.project.usecases.usermanage.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,8 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import com.edevlet.project.usecases.common.iterator.Iterator;
+import com.edevlet.project.usecases.common.iterator.NameRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -103,7 +106,7 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 			dto.setClinic(m.getClinic().getClinicName());
 			dto.setDiagnosis(m.getDiagnosis());
 			dto.setDiagnosisDate(m.getDiagnosisDate());
-			dto.setDoctor(m.getDoctor().getDoctorName());
+			dto.setDoctor(m.getDoctor().getDoctorName()+" "+m.getDoctor().getDoctorSurname());
 
 			return dto;
 		}).collect(Collectors.toList()));
@@ -123,17 +126,28 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 						: f.getUser().getUsername().equals(request.getUserInfo()))
 				.collect(Collectors.toList());
 
-		FetchRecipesResponse response = new FetchRecipesResponse();
-		response.setData(userRecipes.stream().map(m -> {
 
-			RecipeDTO dto = new RecipeDTO();
-			dto.setDoctor(m.getDoctor().getDoctorName());
-			dto.setRecepiDate(m.getRecepiDate());
-			dto.setRecepiNumber(m.getRecepiNumber());
-			dto.setRecepiType(m.getRecepiType());
 
-			return dto;
-		}).collect(Collectors.toList()));
+
+		FetchRecipesResponse response=new FetchRecipesResponse();
+
+		List<RecipeDTO> dataList=new ArrayList<>();
+		NameRepository nameRepository=new NameRepository(userRecipes);
+		Iterator iterator=nameRepository.getIterator();
+
+		while(iterator.hasNext()){
+			Recipe rec= (Recipe) iterator.next();
+			RecipeDTO dto=new RecipeDTO();
+
+			dto.setDoctor(rec.getDoctor().getDoctorName() + " "+rec.getDoctor().getDoctorSurname());
+			dto.setRecepiDate(rec.getRecepiDate());
+			dto.setRecepiNumber(rec.getRecepiNumber());
+			dto.setRecepiType(rec.getRecepiType());
+			dataList.add(dto);
+
+		}
+
+		response.setData(dataList);
 
 		return response;
 	}
@@ -182,7 +196,7 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 		response.setData(userVizits.stream().map(m -> {
 			VizitDTO dto = new VizitDTO();
 			dto.setClinicName(m.getClinic().getClinicName());
-			dto.setDoctorName(m.getDoctor().getDoctorName());
+			dto.setDoctorName(m.getDoctor().getDoctorName() +" "+m.getDoctor().getDoctorSurname());
 			dto.setHospitalName(m.getHospital().getHospitalName());
 			dto.setTrackingNumber(m.getTrackingNumber());
 			dto.setVizitDate(m.getVizitDate());

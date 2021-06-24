@@ -22,6 +22,8 @@ public interface ManageUserService {
 
 	List<Report> getAllReports();
 
+	List<User> getAllUsers();
+
 	List<Vizit> getAllVizits();
 
 	User getUserByIdentityNumber(String identityNumber);

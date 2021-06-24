@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
-import com.edevlet.project.usecases.common.iterator.Iterator;
-import com.edevlet.project.usecases.common.iterator.NameRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +27,12 @@ import com.edevlet.project.usecases.common.entity.user.Recipe;
 import com.edevlet.project.usecases.common.entity.user.Report;
 import com.edevlet.project.usecases.common.entity.user.User;
 import com.edevlet.project.usecases.common.entity.user.Vizit;
+import com.edevlet.project.usecases.common.iterator.Iterator;
+import com.edevlet.project.usecases.common.iterator.NameRepository;
+import com.edevlet.project.usecases.common.observer.AnnouncmentObservable;
+import com.edevlet.project.usecases.common.observer.AnnouncmentObserver;
 import com.edevlet.project.usecases.common.utils.RequestValidator;
+import com.edevlet.project.usecases.mail.service.MailService;
 import com.edevlet.project.usecases.usermanage.entity.DiseaseDTO;
 import com.edevlet.project.usecases.usermanage.entity.FeedBackRequest;
 import com.edevlet.project.usecases.usermanage.entity.FeedBackResponse;
@@ -64,6 +67,9 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 
 	@Autowired
 	private ManageUserService manageUserService;
+
+	@Autowired
+	private MailService mailService;
 
 	@Override
 	public FeedBackResponse feedBack(FeedBackRequest request) {
@@ -106,7 +112,7 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 			dto.setClinic(m.getClinic().getClinicName());
 			dto.setDiagnosis(m.getDiagnosis());
 			dto.setDiagnosisDate(m.getDiagnosisDate());
-			dto.setDoctor(m.getDoctor().getDoctorName()+" "+m.getDoctor().getDoctorSurname());
+			dto.setDoctor(m.getDoctor().getDoctorName() + " " + m.getDoctor().getDoctorSurname());
 
 			return dto;
 		}).collect(Collectors.toList()));
@@ -126,20 +132,17 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 						: f.getUser().getUsername().equals(request.getUserInfo()))
 				.collect(Collectors.toList());
 
+		FetchRecipesResponse response = new FetchRecipesResponse();
 
+		List<RecipeDTO> dataList = new ArrayList<>();
+		NameRepository nameRepository = new NameRepository(userRecipes);
+		Iterator iterator = nameRepository.getIterator();
 
+		while (iterator.hasNext()) {
+			Recipe rec = (Recipe) iterator.next();
+			RecipeDTO dto = new RecipeDTO();
 
-		FetchRecipesResponse response=new FetchRecipesResponse();
-
-		List<RecipeDTO> dataList=new ArrayList<>();
-		NameRepository nameRepository=new NameRepository(userRecipes);
-		Iterator iterator=nameRepository.getIterator();
-
-		while(iterator.hasNext()){
-			Recipe rec= (Recipe) iterator.next();
-			RecipeDTO dto=new RecipeDTO();
-
-			dto.setDoctor(rec.getDoctor().getDoctorName() + " "+rec.getDoctor().getDoctorSurname());
+			dto.setDoctor(rec.getDoctor().getDoctorName() + " " + rec.getDoctor().getDoctorSurname());
 			dto.setRecepiDate(rec.getRecepiDate());
 			dto.setRecepiNumber(rec.getRecepiNumber());
 			dto.setRecepiType(rec.getRecepiType());
@@ -196,7 +199,7 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 		response.setData(userVizits.stream().map(m -> {
 			VizitDTO dto = new VizitDTO();
 			dto.setClinicName(m.getClinic().getClinicName());
-			dto.setDoctorName(m.getDoctor().getDoctorName() +" "+m.getDoctor().getDoctorSurname());
+			dto.setDoctorName(m.getDoctor().getDoctorName() + " " + m.getDoctor().getDoctorSurname());
 			dto.setHospitalName(m.getHospital().getHospitalName());
 			dto.setTrackingNumber(m.getTrackingNumber());
 			dto.setVizitDate(m.getVizitDate());
@@ -291,6 +294,11 @@ public class ManageUserApiServiceImpl implements ManageUserApiService {
 	public SaveAnnouncementResponse saveAnnouncement(SaveAnnouncementRequest request) {
 		manageUserService
 				.saveAnnouncement(new RequestToEntityAdapterImpl().convertRequestToEntity(Announcement.class, request));
+
+		AnnouncmentObservable observable = new AnnouncmentObservable(request.getAnnouncement());
+		observable.add(new AnnouncmentObserver(manageUserService, mailService));
+		observable.notifyObservers();
+
 		return new SaveAnnouncementResponse();
 	}
 

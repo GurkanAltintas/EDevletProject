@@ -74,6 +74,12 @@ public class ManageUserServiceImpl implements ManageUserService {
 	}
 
 	@Override
+	public List<User> getAllUsers() {
+
+		return manageUserDao.findAll();
+	}
+
+	@Override
 	public List<Vizit> getAllVizits() {
 
 		return vizitDao.findAll();

@@ -16,6 +16,9 @@ public class MailServiceImpl implements MailService {
 
 	@Override
 	public MailResponse sendMail(MailRequest request) {
+		if ("".isEmpty()) {
+			return null;
+		}
 		MailType type = findMailType(request.getMailAdress());
 		return MailSenderFactory.createMailSender(type).sendMail(request);
 	}
